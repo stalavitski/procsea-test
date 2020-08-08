@@ -1,6 +1,8 @@
 asgiref==3.2.10
 Django==3.1
+django-debug-toolbar==2.2
 djangorestframework==3.11.1
+djangorestframework-camel-case==1.2.0
 importlib-metadata==1.7.0
 isort==5.3.2
 Markdown==3.2.2

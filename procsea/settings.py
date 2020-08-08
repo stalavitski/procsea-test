@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # third-party apps
+    'debug_toolbar',
     'rest_framework',
     # Local apps
     'regions',
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'procsea.urls'
@@ -124,9 +126,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 # DRF config
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PARSER_CLASSES': [
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer'
+    ],
     'PAGE_SIZE': 10
 }
+
+
+# The Debug Toolbar is shown only if your IP address is listed in the INTERNAL_IPS setting
+INTERNAL_IPS = [
+    '127.0.0.1'
+]

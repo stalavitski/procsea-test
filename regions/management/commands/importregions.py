@@ -1,13 +1,12 @@
 import csv
 import logging
 
-
 from django.core.management.base import BaseCommand
 
 from regions.models import City, County, Region
 
 
-# @TODO make a possibility to set up a file name from the command line
+# @TODO make a possibility to set a file name from the command line
 class Command(BaseCommand):
     help = 'Imports regions from CSV file'
 
@@ -20,7 +19,7 @@ class Command(BaseCommand):
                 defaults={'name': row[3], 'region': region}
             )
             city, _ = City.objects.get_or_create(
-                # If it wouldn't be a test I would ask instead of the assumption of the city unique identifier
+                # If it wouldn't be a test I would ask instead of the assuming the city unique identifier
                 code_insee=row[0],
                 defaults={
                     'area': float(row[7]),

@@ -1,6 +1,5 @@
-from django.urls import include, path
 from django.conf import settings
-
+from django.urls import include, path
 
 urlpatterns = [
     path('api/', include('regions.urls')),

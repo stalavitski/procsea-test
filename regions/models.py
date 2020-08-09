@@ -1,8 +1,11 @@
+import requests
 from django.db import models
 
 # @TODO: Analyze data better to set proper validators
 
 class Region(models.Model):
+    coordinates = None
+
     code = models.IntegerField()  # "Code Région" column in the CSV
     name = models.CharField(max_length=60)  # "Région" column in the CSV
 
@@ -11,6 +14,39 @@ class Region(models.Model):
 
     def __repr__(self):
         return '{}: {}, {}'.format(self.pk, self.code, self.name)
+
+    def get_coordinates(self):
+        """
+        Retrieves coordinates from external API and stores in attribute.
+        :return: dict of lat/lon coordinates
+        """
+        if self.coordinates is None:
+            url = 'https://nominatim.openstreetmap.org/search?country=France&state={}&format=json'.format(self.name)
+            response = requests.get(url)
+            self.coordinates = {
+                'lat': None,
+                'lon': None
+            }
+
+            if response.status_code == 200 and len(response.json()):
+                location = response.json().pop()
+
+                self.coordinates = {
+                    'lat': location['lat'],
+                    'lon': location['lon']
+                }
+
+        return self.coordinates
+
+    @property
+    def lat(self):
+        coordinates = self.get_coordinates()
+        return coordinates['lat']
+
+    @property
+    def lon(self):
+        coordinates = self.get_coordinates()
+        return coordinates['lon']
 
 
 class County(models.Model):

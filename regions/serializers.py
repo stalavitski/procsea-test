@@ -4,6 +4,8 @@ from regions.models import Region
 
 
 class RegionSerializer(serializers.ModelSerializer):
+    lat = serializers.CharField(read_only=True)
+    lon = serializers.CharField(read_only=True)
     total_area = serializers.SerializerMethodField()
     total_population = serializers.SerializerMethodField()
 

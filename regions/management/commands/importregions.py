@@ -10,6 +10,16 @@ from regions.models import City, County, Region
 class Command(BaseCommand):
     help = 'Imports regions from CSV file'
 
+    def add_row_error_log(self, e, reader, row):
+        message = 'Error accured during handling of the row {line}. \n' \
+                  'Message: {error}\n' \
+                  'Values: {values}'.format(
+            error=e,
+            line=reader.line_num,
+            values=row
+        )
+        logging.error(message)
+
     # @TODO Consider a better way to determine fields in case of the CSV format update
     def handle_row(self, reader, row):
         try:
@@ -32,18 +42,16 @@ class Command(BaseCommand):
             )
             logging.info('Updated information for city with Code INSEE: {}'.format(city.code_insee))
         except ValueError as e:
-            message = 'Error accured during handling of the row {line}. \n' \
-                      'Message: {error}\n' \
-                      'Values: {values}'.format(
-                error=e,
-                line=reader.line_num,
-                values=row
-            )
-            logging.error(message)
+            self.add_row_error_log(e, reader, row)
+        except TypeError as e:
+            self.add_row_error_log(e, reader, row)
+        except IndexError as e:
+            self.add_row_error_log(e, reader, row)
 
     def handle(self, *args, **options):
-        file_name = 'correspondance-code-insee-code-postal.csv'
+        self.parse_csv('correspondance-code-insee-code-postal.csv')
 
+    def parse_csv(self, file_name):
         try:
             with open(file_name) as file:
                 reader = csv.reader(file, delimiter=';')
@@ -57,4 +65,3 @@ class Command(BaseCommand):
                 'File not found. Make sure that file with the name "{}" exist in the root directory of the app.'
                     .format(file_name)
             )
-

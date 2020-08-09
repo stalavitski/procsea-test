@@ -14,7 +14,8 @@ class RegionSerializer(serializers.ModelSerializer):
         model = Region
 
     def get_total_area(self, obj):
-        return obj.area_sum
+        return 0 if obj.area_sum is None else obj.area_sum
 
     def get_total_population(self, obj):
-        return round(obj.population_sum, 1)
+        population_sum = 0 if obj.population_sum is None else obj.population_sum
+        return round(population_sum, 1)

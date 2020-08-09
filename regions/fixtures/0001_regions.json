@@ -1,0 +1,10 @@
+[
+  {
+    "model": "regions.Region",
+    "pk": 1,
+    "fields": {
+      "code": 1,
+      "name": "Region 1"
+    }
+  }
+]

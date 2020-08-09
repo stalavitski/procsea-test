@@ -4,7 +4,8 @@ from django.db import models
 # @TODO: Analyze data better to set proper validators
 
 class Region(models.Model):
-    coordinates = None
+    _coordinates = None
+    _coordinates_endpoint = 'https://nominatim.openstreetmap.org/search'
 
     code = models.IntegerField()  # "Code Région" column in the CSV
     name = models.CharField(max_length=60)  # "Région" column in the CSV
@@ -20,23 +21,23 @@ class Region(models.Model):
         Retrieves coordinates from external API and stores in attribute.
         :return: dict of lat/lon coordinates
         """
-        if self.coordinates is None:
-            url = 'https://nominatim.openstreetmap.org/search?country=France&state={}&format=json'.format(self.name)
+        if self._coordinates is None:
+            url = '{}?country=France&state={}&format=json'.format(self._coordinates_endpoint, self.name)
             response = requests.get(url)
-            self.coordinates = {
+            self._coordinates = {
                 'lat': None,
                 'lon': None
             }
 
             if response.status_code == 200 and len(response.json()):
-                location = response.json().pop()
+                location = response.json()[0]
 
-                self.coordinates = {
+                self._coordinates = {
                     'lat': location['lat'],
                     'lon': location['lon']
                 }
 
-        return self.coordinates
+        return self._coordinates
 
     @property
     def lat(self):

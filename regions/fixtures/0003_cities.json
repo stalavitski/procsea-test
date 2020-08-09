@@ -1,0 +1,38 @@
+[
+  {
+    "model": "regions.City",
+    "pk": 1,
+    "fields": {
+      "area": 1,
+      "code_insee": "1",
+      "code_postal": "1",
+      "county": 1,
+      "name": "City 1",
+      "population": 10
+    }
+  },
+  {
+    "model": "regions.City",
+    "pk": 2,
+    "fields": {
+      "area": 2,
+      "code_insee": "2",
+      "code_postal": "2",
+      "county": 1,
+      "name": "City 2",
+      "population": 20
+    }
+  },
+  {
+    "model": "regions.City",
+    "pk": 3,
+    "fields": {
+      "area": 3,
+      "code_insee": "3",
+      "code_postal": "3",
+      "county": 2,
+      "name": "City 3",
+      "population": 30
+    }
+  }
+]

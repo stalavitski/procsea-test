@@ -1,0 +1,20 @@
+[
+  {
+    "model": "regions.County",
+    "pk": 1,
+    "fields": {
+      "code": 1,
+      "name": "County 1",
+      "region": 1
+    }
+  },
+  {
+    "model": "regions.County",
+    "pk": 2,
+    "fields": {
+      "code": 2,
+      "name": "County 2",
+      "region": 1
+    }
+  }
+]

@@ -25,6 +25,33 @@ At the end, fill a README with:
 
 If any question, feel free to ask us :)
 
+The time spent
+----------
+Approx 4 hours
+
+What you didn't have time to do
+----------
+I finished all 6 tasks
+
+What is buggy
+----------
+- External API won't return data for ["MIDI-PYRENEES"](https://nominatim.openstreetmap.org/search?country=France&state=MIDI-PYRENEES&format=json) so it has nulls in the lat, lon columns
+
+What could be improved with more time
+----------
+- Analyze CSV data better to set proper validations
+- Discuss postal code field. It may be split in the separate table 
+- Cache for totalArea and totalPopulation. Their calculation is very resourceful 
+- Cache for lat, lon fields. External API calls are not fast
+- Proper error handling for parser 
+- Possibility to set CSV name as param for command
+- Tests (proper mocking etc)
+
+Info
+----------
+- Use `./manage.py importregions` to run CSV parser. It will parse CSV file in the project root with the name `correspondance-code-insee-code-postal.csv`;
+- Api endpoint `/api/regions/`. List of region is under `results` list.
+
 What to do
 ----------
 

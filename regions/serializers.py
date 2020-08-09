@@ -15,4 +15,4 @@ class RegionSerializer(serializers.ModelSerializer):
         return obj.area_sum
 
     def get_total_population(self, obj):
-        return obj.population_sum
+        return round(obj.population_sum, 1)

@@ -143,6 +143,24 @@ REST_FRAMEWORK = {
 
 
 # The Debug Toolbar is shown only if your IP address is listed in the INTERNAL_IPS setting
+
 INTERNAL_IPS = [
     '127.0.0.1'
 ]
+
+
+# Config for `logging` package
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}

@@ -16,7 +16,8 @@ class Command(BaseCommand):
             region, _ = Region.objects.get_or_create(code=int(row[16]), defaults={'name': row[4]})
             county, _ = County.objects.get_or_create(
                 code=row[15],
-                defaults={'name': row[3], 'region': region}
+                region=region,
+                defaults={'name': row[3]}
             )
             city, _ = City.objects.get_or_create(
                 # If it wouldn't be a test I would ask instead of the assuming the city unique identifier
@@ -41,7 +42,6 @@ class Command(BaseCommand):
             logging.error(message)
 
     def handle(self, *args, **options):
-        logging.getLogger().setLevel(logging.INFO)
         file_name = 'correspondance-code-insee-code-postal.csv'
 
         try:
